@@ -1,0 +1,25 @@
+@use "../../styles/variables.scss";
+@use "../../styles/mixins.scss";
+.wrapper {
+  background-color: variables.$secondary-color;
+  flex: 2;
+
+  .dialogNav {
+    min-height: 3rem;
+    padding: 1rem;
+    background-color: variables.$primary-color;
+    @include mixins.flexbox(
+      $display: flex,
+      $alignItems: center,
+      $justifyContent: space-between
+    );
+  }
+
+  .cta {
+    @include mixins.flexbox($display: flex, $gap: 10px);
+    img {
+      max-width: 2rem;
+      cursor: pointer;
+    }
+  }
+}

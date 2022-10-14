@@ -1,0 +1,77 @@
+@use "../../styles//variables.scss";
+@use "../../styles//mixins.scss";
+.container {
+  @include mixins.flexbox(
+    $display: flex,
+    $direction: row,
+    $alignItems: center,
+    $justifyContent: center
+  );
+  height: calc(100vh - 84px);
+  .login_wrapper {
+    text-align: center;
+    @include mixins.flexbox($display: flex, $flex-basis: 100%);
+    flex-direction: column;
+    padding: 1.5rem 2rem;
+    max-width: 35rem;
+    width: 100%;
+    max-height: 32rem;
+    height: 100%;
+    margin: 2rem;
+    border-radius: 7px;
+    background-color: variables.$light-color;
+    color: variables.$secondary-color;
+    box-shadow: 0px 2px 40px -3px rgba(255, 168, 0, 0.3);
+    .title {
+      display: block;
+      font-size: variables.$font-lg;
+      color: variables.$secondary-color;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .login_form {
+      margin: 1rem 0rem;
+      @include mixins.flexbox($display: flex, $direction: column, $gap: 1rem);
+      input,
+      button {
+        padding: 1rem;
+        border-radius: 7px;
+        font-size: variables.$font-sm;
+      }
+      button {
+        background-color: variables.$theme-color3;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          background: variables.$theme-color1;
+          color: variables.$light-color;
+        }
+      }
+    }
+    label {
+      @include mixins.flexbox(
+        $display: flex,
+        $alignItems: center,
+        $justifyContent: center,
+        $gap: 0.5rem
+      );
+      cursor: pointer;
+
+      span {
+        font-size: variables.$font-sm;
+        color: variables.$secondary-color;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          color: variables.$theme-color3;
+        }
+      }
+    }
+    .addavatar_img {
+      max-width: 2rem;
+    }
+    .message_link {
+      font-weight: 800;
+      color: variables.$theme-color2;
+    }
+  }
+}

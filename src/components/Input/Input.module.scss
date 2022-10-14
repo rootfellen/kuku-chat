@@ -1,0 +1,39 @@
+@use "../../styles//variables.scss";
+@use "../../styles//mixins.scss";
+.messageInput {
+  min-height: 3rem;
+  background-color: variables.$primary-color;
+  padding: 2rem;
+  @include mixins.flexbox(
+    $display: flex,
+    $alignItems: center,
+    $justifyContent: space-between
+  );
+  input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    font-size: 1.125rem;
+    background-color: transparent;
+    color: variables.$light-color;
+    &::placeholder {
+      color: variables.$light-color;
+    }
+  }
+  .inputCta {
+    @include mixins.flexbox($display: flex, $alignItems: center, $gap: 1rem);
+    img {
+      width: 1.8rem;
+      cursor: pointer;
+    }
+    button {
+      all: unset;
+      padding: 0.7rem 1.2rem;
+      background-color: variables.$theme-color1;
+      cursor: pointer;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+    }
+  }
+}

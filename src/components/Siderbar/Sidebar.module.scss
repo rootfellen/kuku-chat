@@ -1,0 +1,5 @@
+@use "../../styles/variables.scss";
+.sidebar {
+  background-color: variables.$theme-color1;
+  flex: 1;
+}

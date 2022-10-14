@@ -1,0 +1,70 @@
+@use "../../styles/mixins.scss";
+@use "../../styles/variables.scss";
+.navbar {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: variables.$primary-color;
+  min-height: 6rem;
+  .container {
+    max-width: 1320px;
+    padding: 0rem 2rem;
+    width: 100%;
+    @include mixins.flexbox(
+      $display: flex,
+      $alignItems: center,
+      $justifyContent: space-between,
+      $shrink: 0,
+      $grow: 1
+    );
+    .logo {
+      max-width: 8rem;
+      max-height: 8rem;
+      @include mixins.flexbox(
+        $display: flex,
+        $direction: row,
+        $shrink: 0,
+        $grow: 1,
+        $flex-basis: 50%
+      );
+      img {
+        width: 100%;
+      }
+    }
+
+    .toolbar {
+      @include mixins.flexbox(
+        $display: flex,
+        $direction: row,
+        $shrink: 0,
+        $grow: 1,
+        $flex-basis: 50%,
+        $alignItems: center,
+        $justifyContent: flex-end
+      );
+      .theme {
+        background-color: variables.$secondary-color;
+        padding: 1rem;
+        border-radius: 7px;
+        margin-right: 1rem;
+        cursor: pointer;
+        color: variables.$light-color;
+        transition: box-shadow 0.3s ease-in-out;
+        &:hover {
+          box-shadow: 0px 0px 0px 1px variables.$theme-color1;
+        }
+      }
+      .signout_btn {
+        background-color: variables.$secondary-color;
+        padding: 1rem;
+        border-radius: 7px;
+        color: variables.$light-color;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease-in-out;
+        &:hover {
+          box-shadow: 0px 0px 0px 1px variables.$theme-color1;
+        }
+      }
+    }
+  }
+}

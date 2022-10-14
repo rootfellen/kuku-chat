@@ -1,0 +1,42 @@
+@use "../../styles/variables.scss";
+@use "../../styles/mixins.scss";
+.wrapper {
+  border-bottom: 1px solid wheat;
+
+  .searchForm {
+    padding: 1rem;
+    input {
+      background-color: transparent;
+      color: variables.$light-color;
+      &::placeholder {
+        color: variables.$light-color;
+      }
+    }
+  }
+  .userChat {
+    @include mixins.flexbox($display: flex, $alignItems: center, $gap: 1rem);
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background-color: #2b2f7a;
+    }
+    .userChatImg {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: teal;
+    }
+    .userChatInfo {
+      span {
+        font-weight: 500;
+        font-size: 1.125rem;
+      }
+      p {
+        font-size: 0.8rem;
+        color: lightgray;
+      }
+    }
+  }
+}

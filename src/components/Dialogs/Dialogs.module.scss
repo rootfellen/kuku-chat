@@ -1,0 +1,31 @@
+@use "../../styles//mixins.scss";
+@use "../../styles//variables.scss";
+.wrapper {
+  .userChat {
+    @include mixins.flexbox($display: flex, $alignItems: center, $gap: 1rem);
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background-color: #2b2f7a;
+    }
+    .userChatImg {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: teal;
+    }
+    .userChatInfo {
+      span {
+        font-weight: 500;
+        font-size: 1.125rem;
+      }
+      p {
+        font-size: 0.8rem;
+        color: lightgray;
+        padding: 0.3rem 0rem;
+      }
+    }
+  }
+}

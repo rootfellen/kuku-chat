@@ -1,0 +1,67 @@
+@use "../../styles/variables.scss";
+@use "../../styles/mixins.scss";
+
+.wrapper,
+.wrapper2 {
+  @include mixins.flexbox($display: flex, $gap: 1.2rem);
+
+  .info {
+    @include mixins.flexbox(
+      $display: flex,
+      $direction: column,
+      $flex-basis: initial,
+      $alignItems: center
+    );
+    font-weight: 300;
+    color: gray;
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    span {
+      margin-top: 0.5rem;
+    }
+    img {
+      width: 3rem;
+      height: 3rem;
+      background-color: teal;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+  .content {
+    max-width: 80%;
+    margin-bottom: 1.5rem;
+    @include mixins.flexbox(
+      $display: flex,
+      $direction: column,
+      $gap: 10px,
+      $flex-basis: 100%
+    );
+    p {
+      background-color: variables.$light-color;
+      padding: 0.7rem 1.2rem;
+      border-radius: 0px 7px 7px 7px;
+      color: variables.$primary-color;
+      max-width: max-content;
+    }
+    img {
+      margin: 0.5rem 0rem;
+      width: 50%;
+    }
+  }
+}
+
+.wrapper2 {
+  @include mixins.flexbox(
+    $display: flex,
+    $gap: 1.2rem,
+    $direction: row-reverse
+  );
+  .content {
+    align-items: flex-end;
+    p {
+      background-color: variables.$theme-color1;
+      color: variables.$light-color;
+      border-radius: 7px 0px 7px 7px;
+    }
+  }
+}
