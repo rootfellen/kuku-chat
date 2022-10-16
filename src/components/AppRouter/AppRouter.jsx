@@ -2,12 +2,15 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "../../routes";
 import { LOGIN_ROUTE, CHAT_ROUTE } from "../../utils/consts";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const AppRouter = () => {
-  const user = false;
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <>
-      {user ? (
+      {currentUser ? (
         <Routes>
           {privateRoutes.map((route) => (
             <Route

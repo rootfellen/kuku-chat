@@ -1,47 +1,62 @@
 import React from "react";
 import styles from "./Signup.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import addAvatar from "../../assets/avatar.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, storage } from "../../firebase";
+import { auth, storage, db } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 
 const Signup = () => {
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const displayName = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
-    const file = e.target[3].value;
-    const storageRef = ref(storage, displayName);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    const file = e.target[3].files[0];
 
     try {
+      //Create user
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      uploadTask.on(
-        (error) => {
-          setError(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+      //Create a unique image name
+      const date = new Date().getTime();
+      const storageRef = ref(storage, `${displayName + date}`);
+
+      await uploadBytesResumable(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          try {
+            //Update profile
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL,
             });
+            //create user on firestore
             await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
               displayName,
               email,
               photoURL: downloadURL,
             });
-          });
-        }
-      );
-    } catch (error) {
+
+            //create empty user chats on firestore
+            await setDoc(doc(db, "userChats", res.user.uid), {});
+            navigate("/login");
+          } catch (err) {
+            console.log(err);
+            setError(true);
+            setLoading(false);
+          }
+        });
+      });
+    } catch (err) {
       setError(true);
+      setLoading(false);
     }
   };
   return (
@@ -59,7 +74,9 @@ const Signup = () => {
             <span>Add an avatar</span>
           </label>
           <button>Sign up</button>
-          {error && <span>Something weng wrong...</span>}
+          {error && (
+            <span style={{ color: "red" }}>Something weng wrong...</span>
+          )}
         </form>
         <p className={styles.message}>
           Got an account?{" "}
