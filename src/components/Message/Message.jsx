@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useContext, useEffect, useRef } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { DialogContext } from "../../context/DialogContext";
 import styles from "./Message.module.scss";
 
-const Message = () => {
-  const user = true;
+const Message = ({ message }) => {
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(DialogContext);
+
+  const ref = useRef();
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
+
   return (
-    <div className={user ? styles.wrapper : styles.wrapper2}>
+    <div
+      ref={ref}
+      className={
+        message.senderId === currentUser.uid ? styles.wrapper2 : styles.wrapper
+      }
+    >
       <div className={styles.info}>
-        <img />
+        <img
+          src={
+            message.senderId === currentUser.uid
+              ? currentUser.photoURL
+              : data.user.photoURL
+          }
+        />
         <span>just now</span>
       </div>
       <div className={styles.content}>
-        <p>Hello</p>
-        <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
+        {message.text && <p>{message.text}</p>}
+        {message.img && <img src={message.img} />}
       </div>
     </div>
   );
