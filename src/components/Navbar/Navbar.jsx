@@ -11,14 +11,6 @@ const Navbar = () => {
         <Link to="/" className={styles.logo}>
           <img src={logo} alt="Kuku Chat" />
         </Link>
-        <div className={styles.toolbar}>
-          <div className={styles.theme}>Dark / Light</div>
-          {isLogged ? (
-            <button className={styles.signout_btn}>Sign out</button>
-          ) : (
-            <></>
-          )}
-        </div>
       </div>
     </nav>
   );

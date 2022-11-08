@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./Signup.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import addAvatar from "../../assets/avatar.png";
@@ -11,7 +11,12 @@ import { doc, setDoc } from "firebase/firestore";
 const Signup = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [fileInput, setFileInput] = useState("");
+
+  const fileHandler = (e) => {
+    setFileInput(e.target.value);
+  };
+  console.log(fileInput);
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -48,7 +53,6 @@ const Signup = () => {
             await setDoc(doc(db, "userChats", res.user.uid), {});
             navigate("/login");
           } catch (err) {
-            console.log(err);
             setError(true);
             setLoading(false);
           }
@@ -68,14 +72,20 @@ const Signup = () => {
           <input type="text" placeholder="name" />
           <input type="email" placeholder="email" />
           <input type="password" placeholder="password" />
-          <input style={{ display: "none" }} type="file" id="file" />
+          <input
+            style={{ display: "none" }}
+            type="file"
+            id="file"
+            value={fileInput}
+            onChange={fileHandler}
+          />
           <label htmlFor="file">
             <img className={styles.addavatar_img} src={addAvatar} />
-            <span>Add an avatar</span>
+            <span>{fileInput ? fileInput : "Add an avatar"}</span>
           </label>
           <button>Sign up</button>
           {error && (
-            <span style={{ color: "red" }}>Something weng wrong...</span>
+            <span style={{ color: "red" }}>Something went wrong...</span>
           )}
         </form>
         <p className={styles.message}>
