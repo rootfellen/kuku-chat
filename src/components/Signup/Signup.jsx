@@ -11,12 +11,11 @@ import { doc, setDoc } from "firebase/firestore";
 const Signup = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [fileInput, setFileInput] = useState("");
+  // const [fileInput, setFileInput] = useState("");
 
   const fileHandler = (e) => {
     setFileInput(e.target.value);
   };
-  console.log(fileInput);
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -81,7 +80,7 @@ const Signup = () => {
           />
           <label htmlFor="file">
             <img className={styles.addavatar_img} src={addAvatar} />
-            <span>{fileInput ? fileInput : "Add an avatar"}</span>
+            {/* <span>{fileInput ? fileInput : "Add an avatar"}</span> */}
           </label>
           <button>Sign up</button>
           {error && (
