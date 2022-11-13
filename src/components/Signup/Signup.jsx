@@ -11,7 +11,7 @@ import { doc, setDoc } from "firebase/firestore";
 const Signup = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const [fileInput, setFileInput] = useState("");
+  const [fileInput, setFileInput] = useState("");
 
   const fileHandler = (e) => {
     setFileInput(e.target.value);
